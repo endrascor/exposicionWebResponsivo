@@ -1,7 +1,7 @@
 
 /* ==========================
-	 Variables
-	 ========================== */
+ 	 Variables
+ 	 ========================== */
 :root {
   /* Core palette (dark, high-contrast) */
   --accent: #0ea5ff; /* clearer blue accent */
@@ -18,9 +18,9 @@
 
 
 /* ==========================
-	 Base
-	 ========================== */
-/* Make box-sizing global to avoid overflow surprises */
+ 	 Base
+ 	 ========================== */
+/* Aplicar box-sizing globalmente para evitar sorpresas de desbordamiento */
 * { box-sizing: border-box; }
 
 body {
@@ -48,8 +48,8 @@ label {
 
 
 /* ==========================
-	 Layout
-	 ========================== */
+ 	 Maquetación (Layout)
+ 	 ========================== */
 header {
   background: var(--card-bg);
   border-bottom: 1px solid var(--card-border);
@@ -71,8 +71,8 @@ footer {
 
 
 /* ==========================
-	 Forms / Controls
-	 ========================== */
+ 	 Formularios / Controles
+ 	 ========================== */
 select,
 input[type="range"],
 input[type="number"] {
@@ -84,27 +84,27 @@ input[type="number"] {
   min-width: 120px;
 }
 
-/* Make selects and inputs clearer */
+/* Mejorar la legibilidad de selects e inputs */
 select { appearance: none; -webkit-appearance: none; }
 select:focus, input[type="number"]:focus, input[type="range"]:focus {
   outline: 3px solid var(--focus);
   outline-offset: 1px;
 }
 
-/* placeholder color */
+/* color del placeholder */
 input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.35); }
 
-/* better dropdown arrow visibility */
+/* mejor visibilidad de la flecha del desplegable */
 select::-ms-expand { display: none; }
 select { background-image: linear-gradient(45deg, transparent 50%, var(--input-border) 50%), linear-gradient(135deg, var(--input-border) 50%, transparent 50%); background-position: calc(100% - 18px) calc(1em + 2px), calc(100% - 13px) calc(1em + 2px); background-size: 6px 6px, 6px 6px; background-repeat: no-repeat; }
 
-/* Improve dropdown option visibility in dark theme */
+/* Mejorar la visibilidad de las opciones del desplegable en tema oscuro */
 select, select option, select optgroup {
   color: var(--text) !important;
   background: var(--card-bg) !important;
 }
 
-/* Options spacing and hover highlight */
+/* Espaciado de opciones y resaltado al pasar el cursor */
 select option {
   padding: 8px 10px;
 }
@@ -113,16 +113,16 @@ select option:hover, select option:checked {
   color: var(--text) !important;
 }
 
-/* optgroup label style */
+/* estilo de la etiqueta optgroup */
 select optgroup { color: var(--muted) !important; }
 
-/* increase contrast of closed select control */
+/* aumentar contraste del control select cerrado */
 select {
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
   border-color: rgba(255,255,255,0.06);
 }
 
-/* Custom select (replacement) styles */
+/* Estilos para custom-select (sustituto visual del select) */
 .custom-select {
   position: relative;
   display: inline-block;
@@ -181,7 +181,7 @@ select {
   background: rgba(14,165,255,0.12);
 }
 
-/* ensure small screens the list expands appropriately */
+/* asegurar que en pantallas pequeñas la lista llegue a una altura adecuada */
 @media (max-width: 640px) {
   .custom-select { min-width: 120px; }
   .custom-select__list { max-height: 180px; }
@@ -210,8 +210,8 @@ button:focus, button.secondary:focus {
 
 
 /* ==========================
-	 Components
-	 ========================== */
+ 	 Componentes
+ 	 ========================== */
 section.card {
   background: var(--card-bg);
   border-radius: 10px;
@@ -321,13 +321,13 @@ th {
 
 
 /* ==========================
-	 Helpers & Utilities
-	 ========================== */
+ 	 Utilidades y Helpers
+ 	 ========================== */
 .mt-12 { margin-top: 12px; }
 .preview-note { font-size: 14px; margin-bottom: 8px; }
 #generatedHtml { height: 140px; }
 
-/* Utility classes for generated examples (flex behavior) */
+/* Clases utilitarias para ejemplos generados (comportamiento flex) */
 /* flex-direction */
 .fd-row { flex-direction: row; }
 .fd-row-reverse { flex-direction: row-reverse; }
@@ -362,5 +362,5 @@ th {
 .ac-space-between { align-content: space-between; }
 .ac-space-around { align-content: space-around; }
 
-/* Gap is applied inline in generated snippets (e.g. style="gap:12px"). */
+/* El gap se aplica inline en los snippets generados (p. ej. style="gap:12px"). */
 
