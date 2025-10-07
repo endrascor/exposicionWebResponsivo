@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Responsive básico — Flexbox y Grid (ejemplos simples)</title>
+  <link rel="stylesheet" href="flex-app.css">
+  <style>
+    /* pequeña pista dentro de la página para estudiantes */
+    .hint { font-size: .9rem; color: #9aa4b2; margin-top: .25rem }
+  </style>
+  <style id="liveDemoStyle"></style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner wrap-inner">
+      <div class="brand">Responsive — Ejemplos</div>
+      <nav class="site-nav" aria-label="Principal">
+        <a href="#responsive">Responsive</a>
+        <a href="#flexbox">Flexbox</a>
+        <a href="#grid">CSS Grid</a>
+        <a href="#comparacion">Comparación</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main wrap-inner">
+    <!-- App: controles y demo interactivo -->
+    <section class="section">
+      <h2>Aplicación interactiva: Flex vs Grid</h2>
+      <p class="short">Cambia entre Flexbox y Grid, cambia unidad base y simula ancho de dispositivo.</p>
+
+      <div class="controls">
+        <div>
+          <label for="unitSelect">Unidad raíz:</label>
+          <select id="unitSelect">
+            <option value="rem">rem</option>
+            <option value="em">em</option>
+            <option value="vw">vw</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="vwSlider">Simular ancho (px): <output id="vwOut">360</output></label>
+          <input id="vwSlider" type="range" min="320" max="1200" value="360">
+        </div>
+
+        <div class="btn-row">
+          <button class="btn" id="useFlex">Flexbox</button>
+          <button class="btn" id="useGrid">Grid</button>
+          <button class="btn primary" id="resetSize">Reset</button>
+        </div>
+      </div>
+
+      <div class="demo-wrap" id="demoWrap">
+        <div class="demo" id="demoArea">
+          <div class="demo-item">A</div>
+          <div class="demo-item">B</div>
+          <div class="demo-item">C</div>
+          <div class="demo-item">D</div>
+        </div>
+
+        <aside class="code-panel">
+          <div class="code-title">HTML (copiable)</div>
+          <pre id="htmlCode" class="code">&lt;div class="demo"&gt;
+  &lt;div class="demo-item"&gt;A&lt;/div&gt;
+  &lt;div class="demo-item"&gt;B&lt;/div&gt;
+  &lt;div class="demo-item"&gt;C&lt;/div&gt;
+  &lt;div class="demo-item"&gt;D&lt;/div&gt;
+&lt;/div&gt;</pre>
+          <div class="code-title">CSS aplicado (editable)</div>
+          <textarea id="cssCode" class="code" rows="10"></textarea>
+
+          <div class="code-actions" style="margin-top:8px;display:flex;gap:8px;">
+            <button class="btn" id="applyCssBtn">Aplicar CSS</button>
+            <button class="btn" id="copyCssBtn">Copiar CSS</button>
+            <button class="btn" id="copyHtmlBtn">Copiar HTML</button>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer wrap-inner">App simple — interactúa y copia el código con doble clic en los bloques.</footer>
+
+  <script>
+  const demo = document.getElementById('demoArea');
+  const cssCode = document.getElementById('cssCode');
+  const demoWrap = document.getElementById('demoWrap');
+  const unitSelect = document.getElementById('unitSelect');
+  const vwSlider = document.getElementById('vwSlider');
+  const vwOut = document.getElementById('vwOut');
+  const liveStyle = document.getElementById('liveDemoStyle');
+  const applyCssBtn = document.getElementById('applyCssBtn');
+  const copyCssBtn = document.getElementById('copyCssBtn');
+  const copyHtmlBtn = document.getElementById('copyHtmlBtn');
+
+    function applyFlex() {
+      demo.className = 'demo demo-flex';
+      const css = `/* Estructura: contenedor y comportamiento principal */
+.demo { display: flex; /* activa Flexbox */
+  flex-wrap: wrap; /* permite que los ítems se envuelvan */
+  gap: 1rem; /* espacio entre ítems (usa rem para escalar) */
+}
+
+/* Ítems: tamaño base y comportamiento flexible */
+.demo-item {
+  flex: 1 1 8rem; /* grow shrink basis */
+  min-width: 6rem; /* evita que se rompan demasiado */
+  padding: 0.75rem; text-align: center;
+}
+
+/* Responsive: ejemplos de adaptación */
+@media (min-width: 700px) {
+  .demo { gap: 1.5rem; }
+}`;
+      cssCode.value = css;
+    }
+
+    function applyGrid() {
+      demo.className = 'demo demo-grid';
+      const css = `/* Estructura: definición de la cuadrícula */
+.demo { display: grid; /* activa CSS Grid */
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); /* columnas responsivas */
+  gap: 1rem; /* espacio entre celdas */
+}
+
+/* Ítems: estilos internos de cada celda */
+.demo-item { padding: 0.75rem; text-align: center; }
+
+/* Responsive: ajustes para pantallas grandes */
+@media (min-width: 700px) {
+  .demo { gap: 1.5rem; }
+}`;
+      cssCode.value = css;
+    }
+
+    unitSelect.addEventListener('change', () => {
+      const u = unitSelect.value;
+      if (u === 'rem') document.documentElement.style.fontSize = '16px';
+      if (u === 'em') document.documentElement.style.fontSize = '14px';
+      if (u === 'vw') document.documentElement.style.fontSize = (window.innerWidth/100) + 'px';
+    });
+
+    vwSlider.addEventListener('input', () => {
+      const val = vwSlider.value;
+      vwOut.textContent = val;
+      demoWrap.style.width = val + 'px';
+    });
+
+    document.getElementById('useFlex').addEventListener('click', applyFlex);
+    document.getElementById('useGrid').addEventListener('click', applyGrid);
+    document.getElementById('resetSize').addEventListener('click', () => { demoWrap.style.width = ''; vwSlider.value = 360; vwOut.textContent = 360; });
+
+    // aplicar CSS al demo (inyectar en <style id="liveDemoStyle">)
+    function applyCssToDemo() {
+      liveStyle.textContent = cssCode.value || '';
+    }
+
+    applyCssBtn.addEventListener('click', applyCssToDemo);
+    copyCssBtn.addEventListener('click', () => { navigator.clipboard && navigator.clipboard.writeText(cssCode.value || ''); });
+    copyHtmlBtn.addEventListener('click', () => { const text = document.getElementById('htmlCode').textContent || ''; navigator.clipboard && navigator.clipboard.writeText(text); });
+
+    applyFlex();
+    applyCssToDemo();
+
+    // doble clic para copiar HTML
+    document.getElementById('htmlCode').addEventListener('dblclick', () => { const text = document.getElementById('htmlCode').textContent || ''; navigator.clipboard && navigator.clipboard.writeText(text); });
+  </script>
+</body>
+</html>

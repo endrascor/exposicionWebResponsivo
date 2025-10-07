@@ -1,0 +1,218 @@
+/*
+  flex-app.css — ejemplo práctico de Flexbox
+  Reorganizado: variables, base, header, controls, layout, cards, responsive
+*/
+
+:root {
+  /* Paleta de colores */
+  --bg: #0f1720;
+  --panel: #111827;
+  --card: #0b1220;
+  --text: #e6eef6;
+  --muted: #9aa4b2;
+  --accent: #60a5fa;
+  --accent-on: #07213a;
+
+  /* Diseño / disposición */
+  --max-width: 1100px;
+  --gap: 16px;
+  --radius: 8px;
+  --border-weak: rgba(255,255,255,0.03);
+}
+
+/* -------------------- Base (Base) -------------------- */
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  font-family: Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hacer que los espacios escalen con el tamaño de fuente raíz (útil para estudiantes) */
+html { font-size: 16px; }
+
+.wrap-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 16px; }
+/* Utilidades */
+.wrap-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 16px; }
+.wrap-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 16px; }
+
+/* -------------------- Encabezado / Navegación (Header / Nav) -------------------- */
+.site-header {
+  border-bottom: 1px solid var(--border-weak);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+}
+.header-inner {
+  /*
+    Uso de Flexbox (Header):
+    - Dónde: este contenedor usa `display: flex` para alinear el logo, la navegación y las acciones.
+    - Por qué: Flexbox permite distribuir el espacio horizontalmente y centrar los elementos verticalmente
+      sin necesidad de floats o posicionamiento complejo.
+  */
+  display: flex; align-items: center; gap: 12px;
+  max-width: var(--max-width); margin: 0 auto; padding: 12px 16px;
+}
+.brand { font-weight: 700; font-size: 1.1rem; }
+.site-nav {
+  /*
+    Uso de Flexbox (Navegación):
+    - Dónde: la lista de enlaces se presenta en fila con `display:flex`.
+    - Por qué: facilita el espaciado uniforme entre enlaces y permite que la barra crezca
+      (con `flex:1`) para ocupar el espacio disponible.
+  */
+  display: flex; gap: 8px; margin-left: 8px; flex: 1;
+}
+.site-nav a {
+  color: var(--muted); text-decoration: none; padding: 6px 8px; border-radius: 6px;
+}
+.site-nav a:hover, .site-nav a:focus { background: rgba(255,255,255,0.02); color: var(--text); outline: none; }
+.header-actions { display: flex; gap: 8px; }
+
+/* -------------------- Botones y Controles (Buttons & Controls) -------------------- */
+.btn {
+  background: transparent; border: 1px solid rgba(255,255,255,0.06);
+  color: var(--text); padding: 6px 10px; border-radius: 6px; cursor: pointer;
+  transition: transform .06s ease, box-shadow .12s ease, background .12s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn:focus { outline: 3px solid rgba(96,165,250,0.14); outline-offset: 2px; }
+.btn.primary { background: var(--accent); border-color: transparent; color: var(--accent-on); }
+.btn.small { padding: 4px 8px; font-size: 0.9rem; }
+
+/* Controles de formulario (select, input) */
+select, input[type="search"], input[type="text"], input[type="number"] {
+  padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04);
+  background: transparent; color: var(--text);
+}
+select:focus, input:focus { outline: 3px solid rgba(96,165,250,0.09); outline-offset: 2px; }
+
+/* -------------------- Maquetación (sidebar + contenido) -------------------- */
+.layout {
+  display: flex; gap: var(--gap); max-width: var(--max-width); margin: 18px auto; padding: 0 16px;
+}
+.sidebar {
+  flex: 0 0 240px; background: var(--panel); padding: 12px; border-radius: var(--radius);
+  border: 1px solid var(--border-weak);
+}
+.content {
+  /*
+    Uso de Flexbox (Contenido):
+    - Dónde: el área principal usa Flexbox en columna (`flex-direction: column`).
+    - Por qué: permite apilar secciones (hero, demos, etc.) con control del espacio (`gap`) y
+      que el contenido central crezca correctamente dentro del layout.
+  */
+  flex: 1 1 auto; display: flex; flex-direction: column; gap: 12px;
+}
+
+.hero {
+  padding: 12px; border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+}
+.hero h1 { margin: 0; font-size: 1.4rem; }
+.muted { color: var(--muted); margin: 6px 0; }
+
+.filters .row { display: flex; flex-direction: column; margin-bottom: 8px; }
+
+/* -------------------- Área de tarjetas (Cards area) -------------------- */
+.cards {
+  /*
+    Uso de Flexbox (Grid de tarjetas):
+    - Dónde: el contenedor de tarjetas usa `display:flex` + `flex-wrap:wrap`.
+    - Por qué: así las tarjetas se envuelven en varias filas cuando falta espacio, logrando
+      un grid responsivo sin usar Grid. El `gap` controla la separación entre tarjetas.
+  */
+  display: flex; flex-wrap: wrap; gap: var(--gap);
+  align-items: stretch; justify-content: flex-start;
+}
+.card {
+  /*
+    Uso de Flex en los ítems (tarjetas):
+    - Dónde: cada .card usa la propiedad `flex` para definir su base y cómo crecer/encoger.
+    - Por qué: `flex:1 1 220px` da a cada tarjeta una base (220px) pero les permite ajustarse
+      si el contenedor cambia de tamaño, manteniendo proporciones.
+  */
+  flex: 1 1 220px; min-width: 200px; background: var(--card);
+  padding: 12px; border-radius: var(--radius); border: 1px solid var(--border-weak);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.card h4 { margin: 0; }
+.card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+.card-meta { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+
+/* -------------------- Pie de página (Footer) -------------------- */
+.site-footer {
+  margin-top: 24px; padding: 18px 16px; text-align: center; color: var(--muted);
+  border-top: 1px solid rgba(255,255,255,0.02);
+}
+
+/* -------------------- Accesibilidad y pequeños ajustes -------------------- */
+button[disabled], .btn[disabled] { opacity: .5; cursor: not-allowed; }
+
+/* -------------------- Media queries / Responsive (ajustes responsivos) -------------------- */
+@media (max-width: 900px) {
+  .layout { flex-direction: column; padding: 0 12px; }
+  .sidebar { flex: 0 0 auto; width: 100%; }
+}
+
+@media (max-width: 560px) {
+  .site-nav { display: none; }
+  .header-inner { padding-left: 12px; padding-right: 12px; }
+  .card { min-width: 100%; flex-basis: 100%; }
+}
+
+/* Fin de flex-app.css */
+
+/* --- Estilos específicos de la app (demo interactivo) --- */
+
+/* Contenedor principal de la app */
+.main { padding: 12px 0; }
+.section { background: var(--panel); border-radius: var(--radius); padding: 12px; margin-bottom: 12px; border: 1px solid var(--border-weak); }
+.short { color: var(--muted); margin: 6px 0 12px; }
+
+/* -------------------- Sección: Controles -------------------- */
+.controls {
+  /*
+    Uso de Flexbox (Controles):
+    - Dónde: barra de controles (selects, botones, slider) utiliza Flexbox.
+    - Por qué: permite ordenar controles en fila, ajustar espacios con `gap` y
+      que se envuelvan (`flex-wrap`) en pantallas pequeñas.
+  */
+  display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 12px;
+}
+.controls label { font-size: .95rem; color: var(--text); }
+.controls select, .controls input[type="range"] { margin-left: 8px; }
+.btn-row { display: flex; gap: 8px; }
+
+/* -------------------- Sección: Demo (área visual) -------------------- */
+.demo-wrap {
+  /*
+    Uso de Flexbox (Demo):
+    - Dónde: contenedor que aloja la vista demo y el panel de código.
+    - Por qué: con Flexbox es sencillo colocar ambos lado a lado en escritorio y
+      apilarlos en móvil usando media queries (mobile-first).
+  */
+  display: flex; gap: 12px; align-items: flex-start; width: 100%; overflow: auto;
+}
+.demo { background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent); padding: 8px; border-radius: 6px; border: 1px solid var(--border-weak); min-width: 220px; }
+.demo-item { background: rgba(255,255,255,0.03); color: var(--text); border-radius: 6px; margin: 4px; }
+
+/* -------------------- Sección: Panel de código -------------------- */
+.code-panel { min-width: 260px; max-width: 480px; }
+.code { background: #071623; color: #bfe6ff; padding: 10px; border-radius: 6px; overflow: auto; font-family: monospace; font-size: .9rem; }
+.code-title { font-weight: 600; margin: 8px 0 4px; }
+
+/* Mobile-first: apilar demo y panel en pantallas pequeñas */
+@media (max-width: 760px) {
+  .demo-wrap { flex-direction: column; }
+  .code-panel { width: 100%; max-width: none; }
+  .demo { width: 100%; }
+}
+
+/* Mejoras para pantallas grandes */
+@media (min-width: 900px) {
+  .controls { justify-content: space-between; }
+  .demo { min-width: 360px; }
+}
