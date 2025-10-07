@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Guía práctica de Flexbox — 20 minutos (Interactivo)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Guía práctica de Flexbox — 20 minutos</h1>
+      <div class="meta">Definición, ejes y dimensiones, propiedades clave — guía paso a paso + ejercicios interactivos</div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h2>Qué encontrarás aquí</h2>
+      <p class="small">Esta guía práctica incluye: explicación teórica, playground interactivo para probar propiedades en tiempo real, 6 ejercicios paso a paso (con solución), y una hoja de referencia rápida (cheat sheet). Está pensada para una sesión práctica de ~20–30 minutos.</p>
+    </section>
+
+    <section class="card">
+      <h2>1) Definición (resumen claro)</h2>
+      <p>Flexbox (Flexible Box Layout) es un <strong>modelo de diseño unidimensional</strong> que facilita la distribución de espacio entre elementos dentro de un contenedor y ofrece potentes opciones de alineación en el eje principal y el eje transversal. Flexbox es ideal para componentes UI, barras de navegación, menús, tarjetas y cualquier grupo de elementos que necesiten distribuirse en una fila o columna.</p>
+    </section>
+
+    <section class="card">
+      <h2>2) Ejes y dimensiones (main axis vs cross axis)</h2>
+      <div class="grid">
+        <p>En Flexbox hay dos ejes fundamentales:</p>
+        <ul>
+          <li><strong>Eje principal (main axis)</strong>: la dirección en la que se colocan los ítems (fila o columna). Controlado por <code>flex-direction</code>.</li>
+          <li><strong>Eje transversal (cross axis)</strong>: perpendicular al eje principal; usado para alinear ítems transversalmente (<code>align-items</code>, <code>align-content</code>).</li>
+        </ul>
+        <p class="small">Importante: la escritura del documento (writing-mode) y la propiedad <code>flex-direction</code> determinan cuál es el eje principal — por ejemplo, <code>row</code> => horizontal, <code>column</code> => vertical.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>3) Propiedades clave (agrupadas)</h2>
+      <div class="cheats">
+        <div>
+          <h3>Propiedades del contenedor</h3>
+          <table>
+            <tr><th>Propiedad</th><th>Qué hace (rápido)</th></tr>
+            <tr><td><code>display: flex | inline-flex</code></td><td>Activa flexbox en el contenedor.</td></tr>
+            <tr><td><code>flex-direction</code></td><td>Define el eje principal: <code>row</code>, <code>row-reverse</code>, <code>column</code>, <code>column-reverse</code>.</td></tr>
+            <tr><td><code>flex-wrap</code></td><td>Permite que los ítems se envuelvan: <code>nowrap</code>, <code>wrap</code>, <code>wrap-reverse</code>.</td></tr>
+            <tr><td><code>justify-content</code></td><td>Alinea a lo largo del eje principal (espacio entre/antes/después).</td></tr>
+            <tr><td><code>align-items</code></td><td>Alinea a lo largo del eje transversal para <em>cada ítem</em>.</td></tr>
+            <tr><td><code>align-content</code></td><td>Alinea las líneas cuando hay más de una (solo aplica si hay wrapping).</td></tr>
+            <tr><td><code>gap</code></td><td>Espacio entre ítems (reemplaza el uso de márgenes manuales en muchos casos).</td></tr>
+          </table>
+        </div>
+        <div>
+          <h3>Propiedades del ítem</h3>
+          <table>
+            <tr><th>Propiedad</th><th>Qué hace</th></tr>
+            <tr><td><code>order</code></td><td>Cambia el orden visual sin modificar el DOM.</td></tr>
+            <tr><td><code>flex-grow</code></td><td>Cuánto puede crecer el ítem respecto a los demás.</td></tr>
+            <tr><td><code>flex-shrink</code></td><td>Cuánto puede encoger para evitar overflow.</td></tr>
+            <tr><td><code>flex-basis</code></td><td>Tamaño base antes de aplicar grow/shrink.</td></tr>
+            <tr><td><code>flex</code></td><td>Shorthand para <code>flex-grow</code> <code>flex-shrink</code> <code>flex-basis</code> (por ejemplo <code>flex: 1 0 150px</code>).</td></tr>
+            <tr><td><code>align-self</code></td><td>Permite anular <code>align-items</code> para un ítem concreto.</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>4) Playground interactivo (prueba en vivo)</h2>
+      <div class="playground">
+        <div class="panel">
+          <div class="controls">
+            <div>
+              <label>flex-direction</label><br>
+              <div class="custom-select" data-for="flexDirection">
+                <button class="custom-select__button" type="button" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="custom-select__value">row</span>
+                  <span class="custom-select__arrow" aria-hidden="true"></span>
+                </button>
+                <div class="custom-select__list" role="listbox" tabindex="-1" hidden></div>
+                <select id="flexDirection" onchange="applySettings()" style="position:absolute;left:-9999px;"> 
+                  <option value="row">row</option>
+                  <option value="row-reverse">row-reverse</option>
+                  <option value="column">column</option>
+                  <option value="column-reverse">column-reverse</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label>flex-wrap</label><br>
+              <div class="custom-select" data-for="flexWrap">
+                <button class="custom-select__button" type="button" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="custom-select__value">nowrap</span>
+                  <span class="custom-select__arrow" aria-hidden="true"></span>
+                </button>
+                <div class="custom-select__list" role="listbox" tabindex="-1" hidden></div>
+                <select id="flexWrap" onchange="applySettings()" style="position:absolute;left:-9999px;">
+                  <option value="nowrap">nowrap</option>
+                  <option value="wrap">wrap</option>
+                  <option value="wrap-reverse">wrap-reverse</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label>justify-content</label><br>
+              <div class="custom-select" data-for="justifyContent">
+                <button class="custom-select__button" type="button" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="custom-select__value">flex-start</span>
+                  <span class="custom-select__arrow" aria-hidden="true"></span>
+                </button>
+                <div class="custom-select__list" role="listbox" tabindex="-1" hidden></div>
+                <select id="justifyContent" onchange="applySettings()" style="position:absolute;left:-9999px;">
+                  <option value="flex-start">flex-start</option>
+                  <option value="flex-end">flex-end</option>
+                  <option value="center">center</option>
+                  <option value="space-between">space-between</option>
+                  <option value="space-around">space-around</option>
+                  <option value="space-evenly">space-evenly</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label>align-items</label><br>
+              <div class="custom-select" data-for="alignItems">
+                <button class="custom-select__button" type="button" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="custom-select__value">stretch</span>
+                  <span class="custom-select__arrow" aria-hidden="true"></span>
+                </button>
+                <div class="custom-select__list" role="listbox" tabindex="-1" hidden></div>
+                <select id="alignItems" onchange="applySettings()" style="position:absolute;left:-9999px;">
+                  <option value="stretch">stretch</option>
+                  <option value="flex-start">flex-start</option>
+                  <option value="flex-end">flex-end</option>
+                  <option value="center">center</option>
+                  <option value="baseline">baseline</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label>align-content</label><br>
+              <div class="custom-select" data-for="alignContent">
+                <button class="custom-select__button" type="button" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="custom-select__value">stretch</span>
+                  <span class="custom-select__arrow" aria-hidden="true"></span>
+                </button>
+                <div class="custom-select__list" role="listbox" tabindex="-1" hidden></div>
+                <select id="alignContent" onchange="applySettings()" style="position:absolute;left:-9999px;">
+                  <option value="stretch">stretch</option>
+                  <option value="flex-start">flex-start</option>
+                  <option value="flex-end">flex-end</option>
+                  <option value="center">center</option>
+                  <option value="space-between">space-between</option>
+                  <option value="space-around">space-around</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label>gap (px)</label><br>
+              <input id="gap" type="number" value="12" min="0" onchange="applySettings()" />
+            </div>
+            <div>
+              <label>Número de ítems</label><br>
+              <input id="itemCount" type="number" value="5" min="1" max="12" onchange="renderItems();applySettings()" />
+            </div>
+          </div>
+
+          <div class="mt-12">
+            <button onclick="setExample(1)">Ejemplo 1 — barra horizontal</button>
+            <button class="secondary" onclick="setExample(2)">Ejemplo 2 — centrar</button>
+            <button onclick="setExample(3)">Ejemplo 3 — tarjetas responsivas</button>
+          </div>
+
+          <div class="mt-12">
+            <div class="small">HTML resultante (copiable):</div>
+            <pre id="generatedHtml" class="code"></pre>
+            <button onclick="copyHtml()">Copiar HTML</button>
+          </div>
+          <div id="status" class="small mt-12" aria-live="polite"></div>
+        </div>
+
+        <div class="preview panel">
+          <div class="preview-note">Vista previa — cambia los controles para ver el comportamiento</div>
+          <div id="flexContainer" class="flex-box">
+            <!-- items rendered by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>5) Ejercicios paso a paso (practica y domina)</h2>
+
+      <div class="exercise">
+        <h3>Ejercicio 1 — Crear una barra simple (3 minutos)</h3>
+        <p>Objetivo: crear una barra horizontal con 4 botones donde el primer y último botón estén alineados a los extremos y los dos centrales queden juntos en el centro.</p>
+        <ol>
+          <li>Crea un contenedor con <code>display:flex</code>.</li>
+          <li>Usa <code>justify-content: space-between</code> en el contenedor.</li>
+          <li>A los dos botones del centro aplícales un contenedor interno si quieres agruparlos, o utiliza <code>margin: 0 8px</code> en los botones.</li>
+        </ol>
+        <details><summary>Solución</summary>
+          <pre class="code">&lt;nav class="flex-box jc-space-between ai-center"&gt;
+  &lt;button&gt;Inicio&lt;/button&gt;
+  &lt;div class="flex-box gap-8"&gt;
+    &lt;button&gt;Docs&lt;/button&gt;
+    &lt;button&gt;API&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;button&gt;Contacto&lt;/button&gt;
+&lt;/nav&gt;</pre>
+        </details>
+      </div>
+
+      <div class="exercise">
+        <h3>Ejercicio 2 — Centro exacto (3 minutos)</h3>
+        <p>Objetivo: centrar un cuadro de 200×100 tanto horizontal como verticalmente dentro de su contenedor.</p>
+        <ol>
+          <li>Contenedor: <code>display:flex; justify-content:center; align-items:center; height:300px;</code></li>
+          <li>Elemento centrar: define su tamaño (width/height).</li>
+        </ol>
+        <details><summary>Solución</summary>
+          <pre class="code">.contenedor{display:flex;justify-content:center;align-items:center;height:300px}
+.cuadro{width:200px;height:100px;background:#eef6ff;border-radius:8px}</pre>
+        </details>
+      </div>
+
+      <div class="exercise">
+        <h3>Ejercicio 3 — Tarjetas responsivas (6 minutos)</h3>
+        <p>Objetivo: construir una fila de tarjetas que se envuelvan en varias filas cuando la pantalla sea estrecha; cada tarjeta debe tener la misma altura.</p>
+        <ol>
+          <li>Contenedor: <code>display:flex; flex-wrap:wrap; gap:16px;</code></li>
+          <li>Tarjetas: usa <code>flex:1 1 220px</code> para que tengan base 220px y puedan crecer/shrink.</li>
+        </ol>
+        <details><summary>Solución</summary>
+          <pre class="code">.grid{display:flex;flex-wrap:wrap;gap:16px}
+.card{flex:1 1 220px;min-width:180px;padding:12px;background:#fff;border-radius:8px;display:flex;flex-direction:column}
+.card .body{flex:1}</pre>
+        </details>
+      </div>
+
+      <div class="exercise">
+        <h3>Ejercicio 4 — Reordenar visualmente (4 minutos)</h3>
+        <p>Objetivo: cambia el orden visual de los elementos sin alterar el DOM, usando <code>order</code>.</p>
+        <ol>
+          <li>Asigna valores <code>order</code> a ítems (valores más bajos aparecen primero).</li>
+        </ol>
+        <details><summary>Solución</summary>
+          <pre class="code">.itemA{order:2}
+.itemB{order:1}
+.itemC{order:3}</pre>
+        </details>
+      </div>
+
+      <div class="exercise">
+        <h3>Ejercicio 5 — Desafío: layout "holy grail" simple con Flexbox (6 minutos)</h3>
+        <p>Objetivo: crear layout con header (fijo en la parte superior), 3 columnas donde la columna central crece y las laterales mantienen ancho fijo, y footer al final.</p>
+        <ol>
+          <li>Usa un contenedor vertical principal con <code>display:flex; flex-direction:column; min-height:100vh;</code></li>
+          <li>El contenido central (row) será <code>display:flex; gap:16px;</code></li>
+          <li>Izquierda/derecha: <code>flex:0 0 220px</code>; centro: <code>flex:1 1 auto</code>.</li>
+        </ol>
+        <details><summary>Solución</summary>
+          <pre class="code">.root{display:flex;flex-direction:column;min-height:100vh}
+.main{display:flex;gap:16px}
+.aside{flex:0 0 220px}
+.content{flex:1 1 auto}</pre>
+        </details>
+      </div>
+
+    </section>
+
+    <section class="card">
+      <h2>6) Respuestas y explicación (detalladas)</h2>
+      <p>Cada solución usa las propiedades vistas en la sección de referencia. Si algo no funciona, revisa:</p>
+      <ul>
+        <li>Que el contenedor tenga realmente <code>display:flex</code>.</li>
+        <li>Si aplicas <code>align-content</code> necesitas que haya múltiples líneas (flex-wrap).</li>
+        <li>Conflictos con <code>min-width</code> o <code>width</code> en ítems.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>7) Hoja rápida (cheat sheet)</h2>
+      <div class="cheats">
+        <div>
+          <h4>Contenedor</h4>
+          <ul>
+            <li><code>display:flex</code> — activa flexbox</li>
+            <li><code>flex-direction</code> — dir. principal</li>
+            <li><code>flex-wrap</code> — wrapping</li>
+            <li><code>justify-content</code> — alineación eje principal</li>
+            <li><code>align-items</code> — alineación eje transversal (por ítem)</li>
+            <li><code>align-content</code> — alineación de líneas cuando hay wrapping</li>
+      <li><code>gap</code> — separación entre ítems</li>
+    </div>
+        <div>
+          <h4>Ítem</h4>
+          <ul>
+            <li><code>order</code> — reordenar</li>
+            <li><code>flex: &lt;grow&gt; &lt;shrink&gt; &lt;basis&gt;</code> — control de tamaño flexible</li>
+            <li><code>align-self</code> — anular alineamiento del contenedor</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>8) Consejos rápidos</h2>
+      <ul>
+        <li>Usa <code>gap</code> en contenedores flex en lugar de márgenes cuando puedas — simplifica el espaciado.</li>
+        <li>Para layouts bidimensionales (grid y filas+columnas complejas) utiliza <strong>CSS Grid</strong> y combina con flexbox para componentes internos.</li>
+        <li>Prueba <code>align-self</code> para excepciones de alineamiento sin tocar otras reglas.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>9) Recursos recomendados</h2>
+      <p class="small">(Busca estos recursos oficiales para leer más): MDN (Flexbox), W3C (especificación), CSS-Tricks (guía práctica).</p>
+    </section>
+
+    <footer>
+      <div class="small">Si quieres, puedo convertir esta guía a un PDF imprimible o a una presentación. Indica qué formato prefieres.</div>
+    </footer>
+  </main>
+
+  <script>
+    const container = document.getElementById('flexContainer');
+    const generated = document.getElementById('generatedHtml');
+
+    function renderItems() {
+      const n = Math.max(1, Math.min(12, parseInt(document.getElementById('itemCount').value || 5)));
+      container.innerHTML = '';
+      for (let i = 1; i <= n; i++) {
+        const el = document.createElement('div');
+        el.className = 'item';
+        el.textContent = 'Item ' + i;
+        container.appendChild(el);
+      }
+      console.log('[renderItems] items:', n);
+      applySettings();
+    }
+
+    function applySettings() {
+      const fd = document.getElementById('flexDirection').value;
+      const fw = document.getElementById('flexWrap').value;
+      const jc = document.getElementById('justifyContent').value;
+      const ai = document.getElementById('alignItems').value;
+      const ac = document.getElementById('alignContent').value;
+      const gap = parseInt(document.getElementById('gap').value || 0);
+
+      container.style.flexDirection = fd;
+      container.style.flexWrap = fw;
+      container.style.justifyContent = jc;
+      container.style.alignItems = ai;
+      container.style.alignContent = ac;
+      container.style.gap = gap + 'px';
+
+      // update visible status for debugging
+      const status = document.getElementById('status');
+      if (status) {
+        status.textContent = `flex-direction: ${fd}; flex-wrap: ${fw}; justify-content: ${jc}; align-items: ${ai}; align-content: ${ac}; gap: ${gap}px;`;
+      }
+      console.log('[applySettings]', {fd, fw, jc, ai, ac, gap});
+
+      updateGeneratedHtml();
+    }
+
+    function setExample(n) {
+      if (n === 1) {
+        document.getElementById('flexDirection').value = 'row';
+        document.getElementById('flexWrap').value = 'nowrap';
+        document.getElementById('justifyContent').value = 'space-between';
+        document.getElementById('alignItems').value = 'center';
+        document.getElementById('itemCount').value = 4;
+        // dispatch change so custom select UI and other listeners update
+        ['flexDirection','flexWrap','justifyContent','alignItems'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+      }
+      if (n === 2) {
+        document.getElementById('flexDirection').value = 'row';
+        document.getElementById('flexWrap').value = 'nowrap';
+        document.getElementById('justifyContent').value = 'center';
+        document.getElementById('alignItems').value = 'center';
+        document.getElementById('itemCount').value = 1;
+        ['flexDirection','flexWrap','justifyContent','alignItems'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+      }
+      if (n === 3) {
+        document.getElementById('flexDirection').value = 'row';
+        document.getElementById('flexWrap').value = 'wrap';
+        document.getElementById('justifyContent').value = 'flex-start';
+        document.getElementById('alignItems').value = 'stretch';
+        document.getElementById('itemCount').value = 7;
+        ['flexDirection','flexWrap','justifyContent','alignItems'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+      }
+      renderItems();
+    }
+
+    function updateGeneratedHtml() {
+      const fd = document.getElementById('flexDirection').value;
+      const fw = document.getElementById('flexWrap').value;
+      const jc = document.getElementById('justifyContent').value;
+      const ai = document.getElementById('alignItems').value;
+      const ac = document.getElementById('alignContent').value;
+      const gap = parseInt(document.getElementById('gap').value || 0);
+
+      // map values to class names (cleaner)
+      const FD_MAP = { row: 'fd-row', 'row-reverse': 'fd-row-reverse', column: 'fd-column', 'column-reverse': 'fd-column-reverse' };
+      const FW_MAP = { nowrap: 'fw-nowrap', wrap: 'fw-wrap', 'wrap-reverse': 'fw-wrap-reverse' };
+      const JC_MAP = { 'flex-start':'jc-flex-start','flex-end':'jc-flex-end','center':'jc-center','space-between':'jc-space-between','space-around':'jc-space-around','space-evenly':'jc-space-evenly' };
+      const AI_MAP = { 'stretch':'ai-stretch','flex-start':'ai-flex-start','flex-end':'ai-flex-end','center':'ai-center','baseline':'ai-baseline' };
+      const AC_MAP = { 'stretch':'ac-stretch','flex-start':'ac-flex-start','flex-end':'ac-flex-end','center':'ac-center','space-between':'ac-space-between','space-around':'ac-space-around' };
+
+      const fdClass = FD_MAP[fd] || '';
+      const fwClass = FW_MAP[fw] || '';
+      const jcClass = JC_MAP[jc] || '';
+      const aiClass = AI_MAP[ai] || '';
+      const acClass = AC_MAP[ac] || '';
+
+  // Simpler: generate snippet that uses inline gap style directly
+  // raw HTML (what we want to copy) and escaped HTML for display in <pre>
+  const count = Math.max(1, Math.min(12, parseInt(document.getElementById('itemCount').value || 5)));
+  let itemsHtml = '';
+  for (let i = 1; i <= count; i++) {
+    itemsHtml += `  <div class="item">Item ${i}</div>\n`;
+  }
+  const raw = `<div class="flex-box ${fdClass} ${fwClass} ${jcClass} ${aiClass} ${acClass}" style="gap:${gap}px;">\n  <!-- items -->\n${itemsHtml}</div>`;
+  const escaped = raw.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  generated.textContent = escaped;
+  // store raw HTML on the element so copyHtml can access it
+  generated.dataset.raw = raw;
+    }
+
+    function copyHtml() {
+      const raw = generated.dataset.raw || generated.textContent || '';
+      navigator.clipboard.writeText(raw).then(() => {
+        alert('HTML copiado al portapapeles');
+      }).catch(err => {
+        // fallback: try execCommand on a temporary textarea
+        try {
+          const ta = document.createElement('textarea');
+          ta.value = raw;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          alert('HTML copiado al portapapeles (fallback)');
+        } catch (e) {
+          alert('No se pudo copiar al portapapeles: ' + (e && e.message));
+        }
+      });
+    }
+
+    // initialize custom selects and then render
+    function initCustomSelects() {
+      const widgets = document.querySelectorAll('.custom-select');
+      widgets.forEach(widget => {
+        const forId = widget.dataset.for;
+        const select = document.getElementById(forId);
+        const btn = widget.querySelector('.custom-select__button');
+        const list = widget.querySelector('.custom-select__list');
+        const valueNode = widget.querySelector('.custom-select__value');
+
+        // clear and populate list (avoid duplicates on re-init)
+        list.innerHTML = '';
+        Array.from(select.options).forEach((opt, idx) => {
+          const div = document.createElement('div');
+          div.className = 'custom-select__option';
+          div.textContent = opt.textContent;
+          div.dataset.value = opt.value;
+          div.setAttribute('role', 'option');
+          div.tabIndex = 0;
+          if (select.value === opt.value) div.setAttribute('aria-selected', 'true');
+          list.appendChild(div);
+        });
+
+        // open/close
+        function openList() { list.hidden = false; btn.setAttribute('aria-expanded', 'true'); }
+        function closeList() { list.hidden = true; btn.setAttribute('aria-expanded', 'false'); }
+
+        btn.addEventListener('click', () => {
+          if (list.hidden) openList(); else closeList();
+        });
+
+        // click option
+        list.addEventListener('click', (e) => {
+          const opt = e.target.closest('.custom-select__option');
+          if (!opt) return;
+          valueNode.textContent = opt.textContent;
+          select.value = opt.dataset.value;
+          // dispatch change so other code listening to the select (or scripts) respond
+          select.dispatchEvent(new Event('change', { bubbles: true }));
+          // update aria-selected
+          list.querySelectorAll('.custom-select__option').forEach(o => o.removeAttribute('aria-selected'));
+          opt.setAttribute('aria-selected', 'true');
+          closeList();
+          applySettings();
+        });
+
+        // keyboard navigation
+        list.addEventListener('keydown', (e) => {
+          const items = Array.from(list.querySelectorAll('.custom-select__option'));
+          let idx = items.findIndex(i => i.getAttribute('aria-selected') === 'true');
+          if (idx === -1) idx = 0;
+          if (e.key === 'ArrowDown') { e.preventDefault(); idx = Math.min(items.length - 1, idx + 1); items[idx].focus(); }
+          if (e.key === 'ArrowUp') { e.preventDefault(); idx = Math.max(0, idx - 1); items[idx].focus(); }
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); items[idx].click(); }
+          if (e.key === 'Escape') { closeList(); btn.focus(); }
+        });
+
+        // click outside to close
+        document.addEventListener('click', (e) => {
+          if (!widget.contains(e.target)) closeList();
+        });
+
+        // set initial visible value from select
+        const sel = select.options[select.selectedIndex];
+        if (sel) valueNode.textContent = sel.textContent;
+
+        // observe changes to the hidden select (if a script changes value programmatically)
+        const mo = new MutationObserver(() => {
+          const cur = select.value;
+          const optNode = list.querySelector(`.custom-select__option[data-value="${cur}"]`);
+          if (optNode) {
+            // update visible label and aria-selected
+            list.querySelectorAll('.custom-select__option').forEach(o => o.removeAttribute('aria-selected'));
+            optNode.setAttribute('aria-selected', 'true');
+            valueNode.textContent = optNode.textContent;
+          }
+        });
+        mo.observe(select, { attributes: true, attributeFilter: ['value'] });
+      });
+    }
+
+    initCustomSelects();
+    // init
+    renderItems();
+  </script>
+</body>
+</html>
