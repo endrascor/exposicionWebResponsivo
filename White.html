@@ -20,6 +20,30 @@
       <p class="small">Esta guía práctica incluye: explicación teórica, playground interactivo para probar propiedades en tiempo real, 6 ejercicios paso a paso (con solución), y una hoja de referencia rápida (cheat sheet). Está pensada para una sesión práctica de ~20–30 minutos.</p>
     </section>
 
+    <!-- Sección añadida: Responsive Design y conceptos esenciales -->
+    <section class="card">
+      <h2>¿Qué es el responsive design?</h2>
+      <p>Responsive design (diseño responsivo) es la práctica de crear interfaces que se adaptan de forma fluida a diferentes tamaños y orientaciones de pantalla, desde móviles hasta escritorios. No se trata solo de escalar elementos, sino de reorganizar y priorizar contenido para que la experiencia sea usable en cualquier dispositivo.</p>
+      <p class="small">Principios: diseño fluido (porcentajes/unidades relativas), puntos de quiebre (media queries), y contenido adaptable (imágenes, tipografías y componentes que reordenan su presentación).</p>
+    </section>
+
+    <section class="card">
+      <h2>Conceptos esenciales</h2>
+      <h3>Mobile‑First vs. Desktop‑First</h3>
+      <p>Mobile‑First: escribir primero las reglas para dispositivos pequeños y usar media queries para ampliar el diseño en pantallas mayores. Es la práctica recomendada hoy porque prioriza la experiencia básica y reduce carga innecesaria en móviles.</p>
+      <p>Desktop‑First: comenzar diseñado para escritorio y luego adaptar para móviles; útil en casos donde la mayor parte del tráfico viene de pantallas grandes, pero suele producir hojas de estilo más pesadas para móviles.</p>
+
+      <h3>Unidades relativas (rem, em, vh, vw)</h3>
+      <ul>
+        <li><strong>rem</strong>: relativo al tamaño de la raíz (&lt;html&gt;). Ideal para tipografías y espaciados coherentes.</li>
+        <li><strong>em</strong>: relativo al tamaño de la fuente del elemento padre; útil para componentes que escalen con su contexto.</li>
+        <li><strong>vh / vw</strong>: unidades relativas al viewport (1vh = 1% de la altura del viewport). Útiles para layouts a pantalla completa o medidas dependientes del viewport.</li>
+      </ul>
+      <p class="small">Recomendación práctica: definir la base tipográfica con <code>html { font-size: 16px; }</code> o usar porcentajes y luego usar <code>rem</code> para mantener escalabilidad predecible.</p>
+    </section>
+
+    <!-- Fin secciones añadidas -->
+
     <section class="card">
       <h2>1) Definición (resumen claro)</h2>
       <p>Flexbox (Flexible Box Layout) es un <strong>modelo de diseño unidimensional</strong> que facilita la distribución de espacio entre elementos dentro de un contenedor y ofrece potentes opciones de alineación en el eje principal y el eje transversal. Flexbox es ideal para componentes UI, barras de navegación, menús, tarjetas y cualquier grupo de elementos que necesiten distribuirse en una fila o columna.</p>
@@ -67,6 +91,71 @@
         </div>
       </div>
     </section>
+
+    <!-- Sección añadida: CSS Grid, comparación y media queries -->
+    <section class="card">
+      <h2>CSS Grid</h2>
+      <p>CSS Grid es un sistema de maquetación bidimensional pensado para diseñar tanto filas como columnas de forma explícita. Es ideal para layouts complejos donde necesitas controlar líneas, áreas y relaciones entre filas y columnas.</p>
+      <h3>Elementos de la cuadrícula</h3>
+      <ul>
+        <li><strong>Contenedor (grid container)</strong>: donde se define <code>display: grid</code> o <code>display: inline-grid</code>.</li>
+        <li><strong>Grid lines</strong>: las líneas imaginarias que forman las columnas y filas.</li>
+        <li><strong>Grid items</strong>: elementos hijos que ocupan celdas o áreas.</li>
+      </ul>
+      <h3>Propiedades clave</h3>
+      <ul>
+        <li><code>grid-template-columns / grid-template-rows</code> — define el tamaño y número de pistas.</li>
+        <li><code>grid-template-areas</code> — nombre de áreas para una sintaxis de plantilla.</li>
+        <li><code>gap / column-gap / row-gap</code> — separación entre pistas (similar a gap en flex).</li>
+        <li><code>grid-column / grid-row</code> — posicionamiento y tamaño de un ítem en la cuadrícula.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Comparación y combinación: mismo ejemplo, diferente tecnología</h2>
+      <p>Abajo muestro un mismo layout simple (barra con 3 áreas: izquierda, centro y derecha) implementado con Flexbox y con Grid para que puedas comparar la sintaxis y el resultado.</p>
+      <h3>Ejemplo con Flexbox</h3>
+      <pre class="code">&lt;nav class="bar"&gt;
+  &lt;div class="left"&gt;Logo&lt;/div&gt;
+  &lt;div class="center"&gt;Navegación&lt;/div&gt;
+  &lt;div class="right"&gt;Acciones&lt;/div&gt;
+&lt;/nav&gt;
+
+.bar { display:flex; justify-content:space-between; align-items:center; gap:16px }
+.center { display:flex; gap:8px }</pre>
+
+      <h3>El mismo ejemplo con Grid</h3>
+      <pre class="code">&lt;nav class="bar-grid"&gt;
+  &lt;div class="logo"&gt;Logo&lt;/div&gt;
+  &lt;div class="nav"&gt;Navegación&lt;/div&gt;
+  &lt;div class="actions"&gt;Acciones&lt;/div&gt;
+&lt;/nav&gt;
+
+.bar-grid { display:grid; grid-template-columns: auto 1fr auto; align-items:center; gap:16px }</pre>
+
+      <h3>Maquetación híbrida</h3>
+      <p>Es habitual combinar Grid y Flexbox: usar Grid para la macro‑estructura (zonas y columnas principales) y Flexbox dentro de componentes (orden y alineación de ítems en una barra, botones, tarjetas). Así consigues lo mejor de ambos mundos: control de áreas + alineación fina.</p>
+    </section>
+
+    <section class="card">
+      <h2>Media Queries</h2>
+      <p>Las media queries permiten aplicar reglas CSS condicionalmente según características del dispositivo (anchura, altura, resolución, orientación, etc.). Enfoque Mobile‑First: escribir estilos base para móvil y usar <code>@media (min-width: ...)</code> para ampliar el diseño en pantallas más grandes.</p>
+      <h3>Sintaxis y uso del viewport</h3>
+      <pre class="code">/* Mobile‑First: estilos base */
+.container { padding: 1rem }
+
+@media (min-width: 768px) {
+  /* Reglas para tablets/desktop */
+  .container { padding: 2rem }
+}
+
+/* Uso de unidades del viewport */
+.hero { height: 60vh; /* 60% de la altura del viewport */ }
+</pre>
+      <p class="small">Recuerda incluir la meta tag <code>&lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;</code> en el &lt;head&gt; (ya está presente en este documento) para que las unidades relativas al viewport y las media queries funcionen correctamente en móviles.</p>
+    </section>
+
+    <!-- Fin secciones añadidas -->
 
     <section class="card">
       <h2>4) Playground interactivo (prueba en vivo)</h2>
@@ -355,9 +444,9 @@
       container.style.justifyContent = jc;
       container.style.alignItems = ai;
       container.style.alignContent = ac;
-      container.style.gap = gap + 'px';
+  container.style.gap = gap + 'px';
 
-      // update visible status for debugging
+  // actualizar el estado visible para depuración
       const status = document.getElementById('status');
       if (status) {
         status.textContent = `flex-direction: ${fd}; flex-wrap: ${fw}; justify-content: ${jc}; align-items: ${ai}; align-content: ${ac}; gap: ${gap}px;`;
@@ -374,7 +463,7 @@
         document.getElementById('justifyContent').value = 'space-between';
         document.getElementById('alignItems').value = 'center';
         document.getElementById('itemCount').value = 4;
-        // dispatch change so custom select UI and other listeners update
+        // enviar evento change para que la UI del select personalizado y otros listeners se actualicen
         ['flexDirection','flexWrap','justifyContent','alignItems'].forEach(id => {
           const el = document.getElementById(id);
           if (el) el.dispatchEvent(new Event('change', { bubbles: true }));
@@ -426,8 +515,8 @@
       const aiClass = AI_MAP[ai] || '';
       const acClass = AC_MAP[ac] || '';
 
-  // Simpler: generate snippet that uses inline gap style directly
-  // raw HTML (what we want to copy) and escaped HTML for display in <pre>
+  // Más simple: generar snippet que use el gap inline directamente
+  // HTML sin escapar (lo que queremos copiar) y HTML escapado para mostrar en el <pre>
   const count = Math.max(1, Math.min(12, parseInt(document.getElementById('itemCount').value || 5)));
   let itemsHtml = '';
   for (let i = 1; i <= count; i++) {
@@ -436,7 +525,7 @@
   const raw = `<div class="flex-box ${fdClass} ${fwClass} ${jcClass} ${aiClass} ${acClass}" style="gap:${gap}px;">\n  <!-- items -->\n${itemsHtml}</div>`;
   const escaped = raw.replace(/</g, '&lt;').replace(/>/g, '&gt;');
   generated.textContent = escaped;
-  // store raw HTML on the element so copyHtml can access it
+  // guardar el HTML sin escapar en el elemento para que copyHtml pueda acceder a él
   generated.dataset.raw = raw;
     }
 
@@ -445,7 +534,7 @@
       navigator.clipboard.writeText(raw).then(() => {
         alert('HTML copiado al portapapeles');
       }).catch(err => {
-        // fallback: try execCommand on a temporary textarea
+        // fallback: intentar execCommand usando un textarea temporal
         try {
           const ta = document.createElement('textarea');
           ta.value = raw;
@@ -460,7 +549,7 @@
       });
     }
 
-    // initialize custom selects and then render
+  // inicializar los custom-selects y luego renderizar
     function initCustomSelects() {
       const widgets = document.querySelectorAll('.custom-select');
       widgets.forEach(widget => {
@@ -470,7 +559,7 @@
         const list = widget.querySelector('.custom-select__list');
         const valueNode = widget.querySelector('.custom-select__value');
 
-        // clear and populate list (avoid duplicates on re-init)
+  // limpiar y poblar la lista (evitar duplicados en re-inicializaciones)
         list.innerHTML = '';
         Array.from(select.options).forEach((opt, idx) => {
           const div = document.createElement('div');
@@ -483,7 +572,7 @@
           list.appendChild(div);
         });
 
-        // open/close
+  // abrir / cerrar
         function openList() { list.hidden = false; btn.setAttribute('aria-expanded', 'true'); }
         function closeList() { list.hidden = true; btn.setAttribute('aria-expanded', 'false'); }
 
@@ -491,22 +580,22 @@
           if (list.hidden) openList(); else closeList();
         });
 
-        // click option
+        // clic en una opción
         list.addEventListener('click', (e) => {
           const opt = e.target.closest('.custom-select__option');
           if (!opt) return;
           valueNode.textContent = opt.textContent;
           select.value = opt.dataset.value;
-          // dispatch change so other code listening to the select (or scripts) respond
+          // enviar change para que otro código que escucha el select (o scripts) responda
           select.dispatchEvent(new Event('change', { bubbles: true }));
-          // update aria-selected
+          // actualizar aria-selected
           list.querySelectorAll('.custom-select__option').forEach(o => o.removeAttribute('aria-selected'));
           opt.setAttribute('aria-selected', 'true');
           closeList();
           applySettings();
         });
 
-        // keyboard navigation
+  // navegación por teclado
         list.addEventListener('keydown', (e) => {
           const items = Array.from(list.querySelectorAll('.custom-select__option'));
           let idx = items.findIndex(i => i.getAttribute('aria-selected') === 'true');
@@ -517,16 +606,16 @@
           if (e.key === 'Escape') { closeList(); btn.focus(); }
         });
 
-        // click outside to close
+        // clic fuera para cerrar
         document.addEventListener('click', (e) => {
           if (!widget.contains(e.target)) closeList();
         });
 
-        // set initial visible value from select
+  // establecer el valor visible inicial a partir del select
         const sel = select.options[select.selectedIndex];
         if (sel) valueNode.textContent = sel.textContent;
 
-        // observe changes to the hidden select (if a script changes value programmatically)
+        // observar cambios en el select oculto (si un script cambia el valor programáticamente)
         const mo = new MutationObserver(() => {
           const cur = select.value;
           const optNode = list.querySelector(`.custom-select__option[data-value="${cur}"]`);
