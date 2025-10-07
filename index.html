@@ -1,21 +1,205 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exposicion web Responsivo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diseño Web Responsivo — Práctica Completa</title>
+  <style>
+    /* =============================
+       ESTILOS BASE — MOBILE FIRST
+       ============================= */
+    :root {
+      --color-primario: #0b7285;
+      --color-fondo: #f7f9fb;
+      --color-texto: #222;
+      --color-muted: #6c757d;
+      --espaciado: 1rem;
+      font-family: system-ui, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--color-fondo);
+      color: var(--color-texto);
+      line-height: 1.5;
+      padding: var(--espaciado);
+    }
+
+    h1, h2, h3 { color: var(--color-primario); }
+    h1 { text-align: center; margin-bottom: 1.5rem; }
+    h2 { margin-top: 2rem; }
+
+    a { color: var(--color-primario); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    ol { padding-left: 1.5rem; }
+
+    img { max-width: 100%; height: auto; border-radius: 8px; display: block; margin: 0.5rem auto; }
+
+    /* Flexbox */
+    .flex-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--espaciado);
+      justify-content: center;
+    }
+
+    /* Grid */
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--espaciado);
+    }
+
+    .producto {
+      background: white;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    /* =============================
+       MEDIA QUERIES — RESPONSIVIDAD
+       ============================= */
+
+    /* Tabletas (>=481px) */
+    @media (min-width: 481px) {
+      body { padding: 2rem; }
+      .grid-container { grid-template-columns: repeat(2, 1fr); }
+      h1 { font-size: 1.8rem; }
+    }
+
+    /* Portátiles (>=769px) */
+    @media (min-width: 769px) {
+      .grid-container { grid-template-columns: repeat(3, 1fr); }
+      .flex-container { justify-content: space-around; }
+    }
+
+    /* Escritorio (>=1025px) */
+    @media (min-width: 1025px) {
+      body { padding: 3rem 6rem; }
+      .grid-container { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    /* Landscape */
+    @media (orientation: landscape) {
+      body { background: #eefbfc; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Exposicion sobre paginas web Responsivas</h1>
-    <h2>Integrantes:</h2>
-    <h3>Dilan Alberto Sánchez Acuña <br>
-        Julio César Valenciano Salas <br>
-        Kendall Fernández Rojas <br>
-        Diego Granados Hernandez
-    </h3>
+  <h1>Diseño Web Responsivo</h1>
+
+  <!-- Índice -->
+  <section id="Indice">
+    <h2>Índice</h2>
+    <ol>
+      <li><a href="#definicion_responsividad">¿Qué es el Responsive Design?</a></li>
+      <li><a href="#conceptos_esenciales">Conceptos Esenciales</a></li>
+      <li><a href="#flexbox">Flexbox</a></li>
+      <li><a href="#css_grid">CSS Grid</a></li>
+      <li><a href="#Comparacion_y_Combinacion">Comparación y Combinación</a></li>
+      <li><a href="#media_queries">Media Queries</a></li>
+      <li><a href="#uso_viewport">Viewport</a></li>
+      <li><a href="#conclusion">Conclusión</a></li>
+      <li><a href="#demo">Demo practica</a></li>
+    </ol>
+  </section>
+
+  <!-- Definición -->
+  <section id="definicion_responsividad">
+    <h2><a href="https://youtu.be/QKacZRBTcoo" target="_blank">¿Qué es el Responsive Design?</a></h2>
+    <p>Es una técnica de diseño que adapta la presentación de un sitio web al tamaño y orientación de la pantalla del dispositivo.</p>
+  </section>
+
+  <!-- Conceptos Esenciales -->
+  <section id="conceptos_esenciales">
+    <h2>Conceptos Esenciales</h2>
+    <h3>Mobile-First</h3>
+    <p>Primero se diseñan estilos para móviles, ampliando progresivamente con <code>@media (min-width)</code>.</p>
+
+    <h3>Desktop-First</h3>
+    <p>Comienza en pantallas grandes y se adapta hacia abajo con <code>@media (max-width)</code>.</p>
+
+    <h3>Unidades de Medida Relativas</h3>
+    <p>Se usan unidades como <code>em</code>, <code>rem</code> y <code>%</code> para lograr adaptabilidad.</p>
+  </section>
+
+  <!-- Flexbox -->
+  <section id="flexbox">
+    <h2>Flexbox</h2>
+    <p>Flexbox organiza elementos en una dirección principal (fila o columna), adaptando automáticamente el espacio.</p>
+    <img src="Images/imagen_2025-10-03_170807408.png" alt="Ejemplo Flexbox">
+    <h3>Propiedades Clave</h3>
     <ul>
-        <li><a href="sitioweb-responsivo.html">Sitio Web</a></li>
-        <li><a href="demo-practica.html">Demo Practica</a></li>
+      <li><code>justify-content</code>: alinea horizontalmente.</li>
+      <li><code>align-items</code>: alinea verticalmente.</li>
+      <li><code>flex-wrap</code>: permite que los ítems salten de línea.</li>
     </ul>
+  </section>
+
+  <!-- CSS Grid -->
+  <section id="css_grid">
+    <h2>CSS Grid</h2>
+    <p>CSS Grid crea estructuras bidimensionales (filas y columnas) fáciles de controlar.</p>
+    <img src="Images/imagen grid2.PNG" alt="Ejemplo Grid 1">
+    <img src="Images/imagen grid3.PNG" alt="Ejemplo Grid 2">
+    <ul>
+      <li><code>grid-template-columns</code>: define el número de columnas.</li>
+      <li><code>grid-gap</code>: establece espacios entre elementos.</li>
+    </ul>
+  </section>
+
+  <!-- Comparación y Combinación -->
+  <section id="Comparacion_y_Combinacion">
+    <h2>Comparación y Combinación</h2>
+
+    <h3>Ejemplo con Flexbox</h3>
+    <div class="flex-container">
+      <div class="producto">Producto 1</div>
+      <div class="producto">Producto 2</div>
+      <div class="producto">Producto 3</div>
+    </div>
+
+    <h3>Ejemplo con Grid</h3>
+    <div class="grid-container">
+      <div class="producto">Producto 1</div>
+      <div class="producto">Producto 2</div>
+      <div class="producto">Producto 3</div>
+    </div>
+
+    <h3>Maquetación Híbrida</h3>
+    <p>Combinando Flexbox para la estructura general y Grid para secciones internas se logra mayor control y flexibilidad.</p>
+  </section>
+
+  <!-- Media Queries -->
+  <section id="media_queries">
+    <h2>Media Queries</h2>
+    <p>Permiten aplicar estilos condicionales según ancho, orientación o características del dispositivo.</p>
+    <ul>
+      <li><code>@media (min-width: 481px)</code> → tabletas</li>
+      <li><code>@media (min-width: 769px)</code> → portátiles</li>
+      <li><code>@media (min-width: 1025px)</code> → escritorio</li>
+    </ul>
+  </section>
+
+  <!-- Viewport -->
+  <section id="uso_viewport">
+    <h2>Viewport</h2>
+    <p>El <em>viewport</em> define el área visible de una página. La etiqueta meta asegura que el ancho del dispositivo sea el usado para el diseño.</p>
+    <img src="Images/viewport.PNG" alt="Ejemplo del viewport en diseño responsivo">
+  </section>
+
+  <!-- Conclusión -->
+  <section id="conclusion">
+    <h2>Conclusión</h2>
+    <p>El diseño responsivo mejora la experiencia del usuario, el rendimiento del sitio y su compatibilidad con cualquier dispositivo.</p>
+  </section>
+
+  <!-- Demo practica -->
+  <section id="demo">
+    <h2><a href="">Demo practica</a></h2>
 </body>
 </html>
